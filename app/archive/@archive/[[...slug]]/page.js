@@ -42,6 +42,19 @@ const FilteredNewsPage = async ({ params }) => {
     newsContent = <NewsList news={filteredNews} />;
   }
 
+  if (selectedYear && !extractYears().includes(selectedYear)) {
+    throw new Error(`Year ${selectedYear} is not available.`);
+  }
+
+  if (
+    selectedMonth &&
+    !getAvailableNewsMonths(selectedYear).includes(+selectedMonth)
+  ) {
+    throw new Error(
+      `Month ${selectedMonth} is not available for the year ${selectedYear}.`
+    );
+  }
+
   return (
     <>
       <header id="archive-header">
